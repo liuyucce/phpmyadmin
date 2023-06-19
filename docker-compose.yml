@@ -3,6 +3,7 @@ version: '3.1'
 services:
   db:
     image: mysql:8.0.28
+    container_name: mysql
     command: --default-authentication-plugin=mysql_native_password
     restart: always
     volumes:
@@ -14,6 +15,7 @@ services:
 
   phpmyadmin:
     image: phpmyadmin:latest
+    container_name: phpmyadmin
     restart: always
     ports:
       - 8080:80
