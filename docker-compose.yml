@@ -21,6 +21,12 @@ services:
       - PMA_HOST=db
       - PMA_ARBITRARY=1
 
+  redis:
+    image: redis:7.0.15
+    container_name: redis
+    ports:
+      - "6379:6379"
+
 volumes:
   mysql:
     driver: local
