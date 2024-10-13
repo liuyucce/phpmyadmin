@@ -22,7 +22,7 @@ services:
       - PMA_ARBITRARY=1
 
   redis:
-    image: redis:7.0.15
+    image: redis:7.2.6
     container_name: redis
     restart: always
     ports:
