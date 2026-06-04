@@ -1,2 +1,4 @@
-volumes/mysql/*
-volumes/rabbitmq/*
+volumes/mysql/data/*
+volumes/rabbitmq/data/*
+!volumes/mysql/data/.htaccess
+!volumes/rabbitmq/data/.htaccess
