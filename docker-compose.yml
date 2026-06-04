@@ -1,8 +1,8 @@
 services:
   db:
-    image: mysql:8.0.39
+    image: mysql:8.4.9
     container_name: mysql
-    command: --default-authentication-plugin=mysql_native_password
+    command: --mysql-native-password=ON
     restart: always
     volumes:
       - mysql:/var/lib/mysql
@@ -21,12 +21,26 @@ services:
       - PMA_HOST=db
       - PMA_ARBITRARY=1
 
-  redis:
-    image: redis:7.2.6
-    container_name: redis
+  valkey:
+    image: valkey/valkey:9.0.4-alpine3.23
+    container_name: valkey
     restart: always
     ports:
       - "6379:6379"
+
+  rabbitmq:
+    image: rabbitmq:4.2.6-management-alpine
+    container_name: rabbitmq
+    hostname: miniclient-rabbitmq
+    restart: always
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - rabbitmq:/var/lib/rabbitmq
 
 volumes:
   mysql:
@@ -35,3 +49,9 @@ volumes:
       type: none
       o: bind
       device: $PWD/volumes/mysql/data
+  rabbitmq:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: $PWD/volumes/rabbitmq/data
